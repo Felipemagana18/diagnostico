@@ -1,0 +1,2 @@
+# diagnostico
+TEST DE DIAGNÓSTICO ORDEN HUMANO
