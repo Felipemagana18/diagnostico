@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Tu marca ya encontró su esencia? — ORDEN HUMANO®</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro: #060606;
+    --oro: #C4973A;
+    --oro-claro: #E8C46A;
+    --oro-oscuro: #7A5A10;
+    --oro-sutil: rgba(196,151,58,0.08);
+    --blanco: #F0EAD8;
+    --gris: #1C1C1C;
+    --gris-texto: #888;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── FONDO ANIMADO ── */
+  .fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .fondo::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,151,58,0.06) 0%, transparent 70%);
+    top: -200px; left: -200px;
+    animation: pulso 8s ease-in-out infinite alternate;
+  }
+  .fondo::after {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,151,58,0.04) 0%, transparent 70%);
+    bottom: -150px; right: -150px;
+    animation: pulso 10s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes pulso {
+    from { transform: scale(1); opacity: 0.6; }
+    to   { transform: scale(1.3); opacity: 1; }
+  }
+
+  /* ── FRACTURA SVG decorativa ── */
+  .fractura-deco {
+    position: fixed;
+    top: 0; right: 0;
+    width: 200px; height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+  }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+
+  /* ── PANTALLAS ── */
+  .pantalla {
+    display: none;
+    width: 100%;
+    max-width: 680px;
+    animation: aparecer 0.5s ease forwards;
+  }
+  .pantalla.activa { display: block; }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── INTRO ── */
+  .intro-eyebrow {
+    font-size: 9px;
+    letter-spacing: 7px;
+    color: var(--oro);
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .intro-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 6vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    text-align: center;
+    color: var(--blanco);
+    margin-bottom: 10px;
+  }
+
+  .intro-titulo em {
+    color: var(--oro);
+    font-style: italic;
+  }
+
+  .intro-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .intro-sep .ln { width: 40px; height: 1px; background: linear-gradient(to right, transparent, var(--oro)); }
+  .intro-sep .ln.r { background: linear-gradient(to left, transparent, var(--oro)); }
+  .intro-sep .dm { width: 5px; height: 5px; background: var(--oro); transform: rotate(45deg); }
+
+  .intro-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.8;
+    text-align: center;
+    color: var(--gris-texto);
+    margin-bottom: 40px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .intro-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .meta-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--oro);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .meta-lbl {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  /* ── BOTONES ── */
+  .btn-primario {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    background: var(--oro);
+    color: #060606;
+    border: none;
+    padding: 18px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primario::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .btn-primario:hover::before { transform: translateX(0); }
+  .btn-primario:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196,151,58,0.3); }
+
+  .btn-wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 14px;
+    background: #1B5E20;
+    color: #fff;
+    border: none;
+    padding: 18px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-wa:hover { background: #2E7D32; transform: translateY(-2px); }
+
+  .btn-ig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    background: transparent;
+    color: var(--oro);
+    border: 1px solid var(--oro-oscuro);
+    padding: 16px 32px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 400;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-ig:hover { border-color: var(--oro); background: var(--oro-sutil); }
+
+  /* ── PREGUNTA ── */
+  .pregunta-header {
+    margin-bottom: 40px;
+  }
+
+  .progreso-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .progreso-barra {
+    flex: 1;
+    height: 2px;
+    background: #1C1C1C;
+    position: relative;
+    overflow: hidden;
+  }
+  .progreso-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--oro-oscuro), var(--oro));
+    transition: width 0.5s ease;
+  }
+  .progreso-num {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gris-texto);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+  .progreso-num span { color: var(--oro); }
+
+  .pregunta-eyebrow {
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: var(--oro);
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 14px;
+  }
+
+  .pregunta-texto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--blanco);
+  }
+
+  /* ── OPCIONES ── */
+  .opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 36px;
+  }
+
+  .opcion {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px 24px;
+    border: 1px solid #1E1E1E;
+    background: rgba(255,255,255,0.01);
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    text-align: left;
+  }
+  .opcion::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--oro);
+    transform: scaleY(0);
+    transition: transform 0.25s;
+    transform-origin: bottom;
+  }
+  .opcion:hover { border-color: var(--oro-oscuro); background: var(--oro-sutil); }
+  .opcion:hover::before { transform: scaleY(1); }
+  .opcion.seleccionada { border-color: var(--oro); background: rgba(196,151,58,0.10); }
+  .opcion.seleccionada::before { transform: scaleY(1); }
+
+  .opcion-letra {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--oro);
+    font-weight: 300;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .opcion-texto {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--blanco);
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  .pregunta-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  .btn-atras {
+    background: none;
+    border: none;
+    color: var(--gris-texto);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 8px 0;
+  }
+  .btn-atras:hover { color: var(--blanco); }
+
+  .btn-siguiente {
+    background: transparent;
+    border: 1px solid var(--oro-oscuro);
+    color: var(--oro);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 14px 28px;
+    transition: all 0.25s;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .btn-siguiente.activo {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .btn-siguiente.activo:hover {
+    background: var(--oro);
+    color: #060606;
+    border-color: var(--oro);
+  }
+
+  /* ── RESULTADO ── */
+  .resultado-wrap {
+    text-align: center;
+  }
+
+  .resultado-estado {
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding: 8px 20px;
+    border: 1px solid;
+    margin-bottom: 28px;
+  }
+  .estado-dormida { color: #E57373; border-color: #5C2222; background: rgba(229,115,115,0.07); }
+  .estado-despertando { color: #FFD54F; border-color: #5C4A00; background: rgba(255,213,79,0.07); }
+  .estado-esencia { color: var(--oro-claro); border-color: var(--oro-oscuro); background: var(--oro-sutil); }
+
+  .resultado-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .resultado-titulo em { font-style: italic; color: var(--oro); }
+
+  .resultado-subtitulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gris-texto);
+    margin-bottom: 32px;
+  }
+
+  .resultado-barra-wrap {
+    margin: 0 auto 32px;
+    max-width: 400px;
+  }
+  .resultado-barra-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--gris-texto);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .resultado-barra {
+    height: 3px;
+    background: #1C1C1C;
+    position: relative;
+    overflow: hidden;
+  }
+  .resultado-barra-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--oro-oscuro), var(--oro-claro));
+    transition: width 1s ease 0.3s;
+    width: 0;
+  }
+
+  .resultado-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--gris-texto);
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+
+  .resultado-diagnostico {
+    background: rgba(196,151,58,0.05);
+    border: 1px solid #1E1E1E;
+    border-left: 2px solid var(--oro);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    text-align: left;
+  }
+  .diagnostico-titulo {
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: var(--oro);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .diagnostico-texto {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--blanco);
+    opacity: 0.85;
+  }
+
+  .resultado-cta-titulo {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  .marca-footer {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid #1A1A1A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .marca-footer .dm { width: 4px; height: 4px; background: var(--oro-oscuro); transform: rotate(45deg); }
+  .marca-footer span {
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  .marca-footer .nombre { color: var(--oro-oscuro); }
+
+  /* ── CARGANDO ── */
+  .cargando {
+    text-align: center;
+    padding: 60px 0;
+  }
+  .cargando-anillo {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #1C1C1C;
+    border-top-color: var(--oro);
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    animation: girar 1s linear infinite;
+  }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  .cargando-texto {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gris-texto);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .wrapper { padding: 40px 20px; }
+    .intro-meta { gap: 24px; }
+    .opcion { padding: 16px 18px; }
+    .fractura-deco { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="fondo"></div>
+
+<svg class="fractura-deco" viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <path d="M160 0 L120 100 L150 200 L100 340 L140 460 L90 600 L130 800" stroke="#C4973A" stroke-width="0.8" fill="none"/>
+  <path d="M180 50 L140 180 L165 280 L115 420" stroke="#C4973A" stroke-width="0.4" fill="none"/>
+  <circle cx="120" cy="100" r="2" fill="#C4973A"/>
+  <circle cx="100" cy="340" r="1.5" fill="#C4973A"/>
+  <circle cx="90" cy="600" r="2" fill="#C4973A"/>
+</svg>
+
+<div class="wrapper">
+
+  <!-- ═══ PANTALLA: INTRO ═══ -->
+  <div class="pantalla activa" id="pantalla-intro">
+    <p class="intro-eyebrow">ORDEN HUMANO® · Diagnóstico de Marca</p>
+    <h1 class="intro-titulo">¿Tu marca ya<br>encontró su <em>esencia</em>?</h1>
+    <div class="intro-sep">
+      <div class="ln"></div><div class="dm"></div><div class="ln r"></div>
+    </div>
+    <p class="intro-desc">
+      Responde 5 preguntas honestamente y descubrirás en qué punto está tu marca — y qué necesita para dejar de ser invisible.
+    </p>
+    <div class="intro-meta">
+      <div class="meta-item">
+        <span class="meta-num">5</span>
+        <span class="meta-lbl">Preguntas</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-num">2'</span>
+        <span class="meta-lbl">Minutos</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-num">3</span>
+        <span class="meta-lbl">Resultados</span>
+      </div>
+    </div>
+    <button class="btn-primario" onclick="iniciar()">COMENZAR DIAGNÓSTICO ›</button>
+    <div class="marca-footer">
+      <div class="dm"></div>
+      <span>Una herramienta de</span>
+      <span class="nombre">ORDEN HUMANO®</span>
+      <div class="dm"></div>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: PREGUNTA ═══ -->
+  <div class="pantalla" id="pantalla-pregunta">
+    <div class="pregunta-header">
+      <div class="progreso-wrap">
+        <div class="progreso-barra">
+          <div class="progreso-fill" id="progreso-fill" style="width:0%"></div>
+        </div>
+        <span class="progreso-num"><span id="num-actual">1</span> / 5</span>
+      </div>
+      <p class="pregunta-eyebrow" id="pregunta-categoria">Identidad</p>
+      <h2 class="pregunta-texto" id="pregunta-texto">Texto de la pregunta</h2>
+    </div>
+
+    <div class="opciones" id="opciones-container"></div>
+
+    <div class="pregunta-nav">
+      <button class="btn-atras" id="btn-atras" onclick="anterior()">← ANTERIOR</button>
+      <button class="btn-siguiente" id="btn-siguiente" onclick="siguiente()">SIGUIENTE ›</button>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: CARGANDO ═══ -->
+  <div class="pantalla" id="pantalla-cargando">
+    <div class="cargando">
+      <div class="cargando-anillo"></div>
+      <p class="cargando-texto">Analizando tu esencia</p>
+    </div>
+  </div>
+
+  <!-- ═══ PANTALLA: RESULTADO ═══ -->
+  <div class="pantalla" id="pantalla-resultado">
+    <div class="resultado-wrap">
+      <div id="resultado-estado" class="resultado-estado"></div>
+      <h2 class="resultado-titulo" id="resultado-titulo"></h2>
+      <p class="resultado-subtitulo" id="resultado-subtitulo"></p>
+
+      <div class="resultado-barra-wrap">
+        <div class="resultado-barra-label">
+          <span>Nivel de esencia</span>
+          <span id="resultado-pct"></span>
+        </div>
+        <div class="resultado-barra">
+          <div class="resultado-barra-fill" id="resultado-fill"></div>
+        </div>
+      </div>
+
+      <p class="resultado-desc" id="resultado-desc"></p>
+
+      <div class="resultado-diagnostico">
+        <p class="diagnostico-titulo">Tu diagnóstico</p>
+        <p class="diagnostico-texto" id="resultado-diagnostico"></p>
+      </div>
+
+      <p class="resultado-cta-titulo">El siguiente paso</p>
+      <a id="btn-wa-resultado" class="btn-wa" href="#" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        QUIERO MI CONSULTORÍA
+      </a>
+      <a href="https://instagram.com/felipe280645" target="_blank" class="btn-ig">
+        VER MÁS EN INSTAGRAM →
+      </a>
+      <button onclick="reiniciar()" style="display:block;margin:20px auto 0;background:none;border:none;color:#333;font-family:Montserrat,sans-serif;font-size:9px;letter-spacing:2px;cursor:pointer;text-transform:uppercase;">Repetir diagnóstico</button>
+    </div>
+    <div class="marca-footer">
+      <div class="dm"></div>
+      <span class="nombre">ORDEN HUMANO®</span>
+      <div class="dm"></div>
+      <span>Ex Origine Veritas</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const preguntas = [
+  {
+    categoria: "Identidad",
+    texto: "Si alguien te pregunta qué hace tu marca, ¿qué pasa?",
+    opciones: [
+      { letra: "A", texto: "Lo explico diferente cada vez y nunca queda del todo claro.", pts: 0 },
+      { letra: "B", texto: "Tengo una respuesta, pero siento que no refleja todo lo que somos.", pts: 1 },
+      { letra: "C", texto: "Tengo una respuesta clara que resuena con la gente.", pts: 2 },
+    ]
+  },
+  {
+    categoria: "Diferenciación",
+    texto: "¿Sabes exactamente en qué es diferente tu marca de las demás en tu categoría?",
+    opciones: [
+      { letra: "A", texto: "No realmente. Creo que hacemos cosas similares a los demás.", pts: 0 },
+      { letra: "B", texto: "Sí, pero me cuesta mucho comunicarlo hacia afuera.", pts: 1 },
+      { letra: "C", texto: "Totalmente. Mi diferencia es clara y mis clientes lo perciben.", pts: 2 },
+    ]
+  },
+  {
+    categoria: "Público",
+    texto: "¿Tienes claro a quién le habla tu marca y por qué esa persona te elegiría?",
+    opciones: [
+      { letra: "A", texto: "Le hablamos a todos. No queremos dejar a nadie fuera.", pts: 0 },
+      { letra: "B", texto: "Tengo una idea, pero no he validado si realmente conecta con ellos.", pts: 1 },
+      { letra: "C", texto: "Sí. Conozco a mi cliente ideal y construyo todo pensando en él.", pts: 2 },
+    ]
+  },
+  {
+    categoria: "Coherencia",
+    texto: "¿Cómo describes tu presencia visual y comunicación en redes?",
+    opciones: [
+      { letra: "A", texto: "Inconsistente. Publicamos cuando podemos y de lo que podemos.", pts: 0 },
+      { letra: "B", texto: "Hay algo de coherencia pero no transmite lo que realmente somos.", pts: 1 },
+      { letra: "C", texto: "Todo comunica con coherencia: tono, imagen y mensaje alineados.", pts: 2 },
+    ]
+  },
+  {
+    categoria: "Propósito",
+    texto: "¿Tienes claro por qué existe tu marca más allá de generar ingresos?",
+    opciones: [
+      { letra: "A", texto: "No lo he pensado. Empecé el negocio y fui avanzando.", pts: 0 },
+      { letra: "B", texto: "Lo siento, pero no lo tengo escrito ni lo comunico claramente.", pts: 1 },
+      { letra: "C", texto: "Sí. Tengo claro mi propósito y lo vivo en cada decisión de marca.", pts: 2 },
+    ]
+  }
+];
+
+const resultados = [
+  {
+    min: 0, max: 3,
+    estado: "Tu marca está dormida",
+    estadoClass: "estado-dormida",
+    titulo: "La esencia está<br>enterrada.",
+    subtitulo: "Pero toda luz emerge de la oscuridad.",
+    pct: 20,
+    desc: "Tu marca existe, pero aún no sabe quién es. Está construyendo hacia afuera sin tener claro qué hay adentro. Eso no es un fracaso — es el punto de partida perfecto para el Método Cultivo de Esencia.",
+    diagnostico: "Marcas en este punto necesitan un proceso completo: identificar su herida fundacional, definir su arquetipo y construir su arquitectura cultural desde cero. Es el trabajo más transformador que existe.",
+    wa: "Hola, acabo de hacer el diagnóstico de ORDEN HUMANO y mi marca está dormida. Me gustaría saber cómo puede ayudarme el Método Cultivo de Esencia."
+  },
+  {
+    min: 4, max: 7,
+    estado: "Tu marca está despertando",
+    estadoClass: "estado-despertando",
+    titulo: "La esencia existe,<br>pero <em>no brilla aún.</em>",
+    subtitulo: "El potencial está ahí. Solo falta sacarlo.",
+    pct: 55,
+    desc: "Tu marca tiene intuición y dirección, pero algo se pierde en la comunicación. Sientes que eres diferente, pero no logras que los demás lo perciban con la misma claridad. Eso es una brecha de arquitectura cultural — y tiene solución.",
+    diagnostico: "Marcas en este punto ya tienen una base sólida. El trabajo es clarificar el código cultural, afilar el posicionamiento y activar la comunicación con coherencia total.",
+    wa: "Hola, hice el diagnóstico de ORDEN HUMANO y mi marca está despertando. Me interesa trabajar el posicionamiento y la arquitectura cultural."
+  },
+  {
+    min: 8, max: 10,
+    estado: "Tu marca tiene esencia",
+    estadoClass: "estado-esencia",
+    titulo: "Ya encontraste<br>tu <em>esencia.</em>",
+    subtitulo: "Ahora viene la activación.",
+    pct: 88,
+    desc: "Tu marca sabe quién es, a quién le habla y por qué existe. Eso es extraordinario y no es lo más común. El siguiente paso es escalar esa esencia: convertirla en una estrategia de crecimiento que multiplique su alcance sin perder coherencia.",
+    diagnostico: "Marcas en este punto están listas para el Acompañamiento Continuo: mentoría estratégica para crecer desde la esencia, sin perder la identidad que las hace únicas.",
+    wa: "Hola, hice el diagnóstico de ORDEN HUMANO y mi marca ya tiene esencia. Me interesa el acompañamiento para escalar sin perder coherencia."
+  }
+];
+
+let preguntaActual = 0;
+let respuestas = [];
+let seleccionActual = null;
+
+function ir(id) {
+  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+  const el = document.getElementById(id);
+  el.classList.add('activa');
+  // re-trigger animation
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = '';
+}
+
+function iniciar() {
+  preguntaActual = 0;
+  respuestas = [];
+  seleccionActual = null;
+  mostrarPregunta();
+  ir('pantalla-pregunta');
+}
+
+function mostrarPregunta() {
+  const p = preguntas[preguntaActual];
+  document.getElementById('num-actual').textContent = preguntaActual + 1;
+  document.getElementById('pregunta-categoria').textContent = p.categoria;
+  document.getElementById('pregunta-texto').textContent = p.texto;
+
+  const pct = ((preguntaActual) / preguntas.length) * 100;
+  document.getElementById('progreso-fill').style.width = pct + '%';
+
+  const container = document.getElementById('opciones-container');
+  container.innerHTML = '';
+  p.opciones.forEach((op, i) => {
+    const div = document.createElement('button');
+    div.className = 'opcion' + (respuestas[preguntaActual] !== undefined && respuestas[preguntaActual].i === i ? ' seleccionada' : '');
+    div.innerHTML = `<span class="opcion-letra">${op.letra}</span><span class="opcion-texto">${op.texto}</span>`;
+    div.onclick = () => seleccionar(i, op.pts, div);
+    container.appendChild(div);
+  });
+
+  seleccionActual = respuestas[preguntaActual] !== undefined ? respuestas[preguntaActual].i : null;
+  actualizarNavegacion();
+
+  document.getElementById('btn-atras').style.visibility = preguntaActual === 0 ? 'hidden' : 'visible';
+}
+
+function seleccionar(idx, pts, el) {
+  document.querySelectorAll('.opcion').forEach(o => o.classList.remove('seleccionada'));
+  el.classList.add('seleccionada');
+  seleccionActual = idx;
+  respuestas[preguntaActual] = { i: idx, pts };
+  actualizarNavegacion();
+
+  // Auto-advance after short delay on last question
+  if (preguntaActual === preguntas.length - 1) {
+    setTimeout(() => calcularResultado(), 400);
+  }
+}
+
+function actualizarNavegacion() {
+  const btn = document.getElementById('btn-siguiente');
+  const esUltima = preguntaActual === preguntas.length - 1;
+  btn.textContent = esUltima ? 'VER RESULTADO ›' : 'SIGUIENTE ›';
+  if (seleccionActual !== null) {
+    btn.classList.add('activo');
+  } else {
+    btn.classList.remove('activo');
+  }
+}
+
+function siguiente() {
+  if (seleccionActual === null) return;
+  if (preguntaActual < preguntas.length - 1) {
+    preguntaActual++;
+    seleccionActual = null;
+    mostrarPregunta();
+  } else {
+    calcularResultado();
+  }
+}
+
+function anterior() {
+  if (preguntaActual > 0) {
+    preguntaActual--;
+    seleccionActual = respuestas[preguntaActual] !== undefined ? respuestas[preguntaActual].i : null;
+    mostrarPregunta();
+  }
+}
+
+function calcularResultado() {
+  ir('pantalla-cargando');
+  const total = respuestas.reduce((sum, r) => sum + r.pts, 0);
+
+  setTimeout(() => {
+    const res = resultados.find(r => total >= r.min && total <= r.max);
+    mostrarResultado(res, total);
+  }, 1800);
+}
+
+function mostrarResultado(res, total) {
+  document.getElementById('resultado-estado').textContent = res.estado;
+  document.getElementById('resultado-estado').className = 'resultado-estado ' + res.estadoClass;
+  document.getElementById('resultado-titulo').innerHTML = res.titulo;
+  document.getElementById('resultado-subtitulo').textContent = res.subtitulo;
+  document.getElementById('resultado-pct').textContent = res.pct + '%';
+  document.getElementById('resultado-desc').textContent = res.desc;
+  document.getElementById('resultado-diagnostico').textContent = res.diagnostico;
+
+  const waLink = `https://wa.me/525539683921?text=${encodeURIComponent(res.wa)}`;
+  document.getElementById('btn-wa-resultado').href = waLink;
+
+  ir('pantalla-resultado');
+
+  setTimeout(() => {
+    document.getElementById('resultado-fill').style.width = res.pct + '%';
+  }, 100);
+}
+
+function reiniciar() {
+  ir('pantalla-intro');
+  preguntaActual = 0;
+  respuestas = [];
+  seleccionActual = null;
+}
+</script>
+</body>
+</html>
